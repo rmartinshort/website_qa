@@ -37,7 +37,7 @@ matplotlib-inline==0.1.6
 multidict==6.0.4
 nest-asyncio==1.5.6
 numpy==1.24.1
-openai==0.26.1
+openai==0.27.5
 packaging==23.0
 pandas==1.5.2
 parso==0.8.3
@@ -79,3 +79,4 @@ wcwidth==0.2.5
 yarg==0.1.9
 yarl==1.8.2
 cookiecutter==2.1.1
+nltk==3.8.1

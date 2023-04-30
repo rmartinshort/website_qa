@@ -2,16 +2,21 @@ import re
 import urllib.request
 from html.parser import HTMLParser
 from urllib.parse import urlparse
-from website_qa.crawler.constants import HTTP_URL_PATTERN
+from website_qa.crawler.constants import (
+    HTTP_URL_PATTERN,
+    include_htags,
+    exclude_htags,
+)
 import logging
-logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
+
+logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
 
 
 # Create a class to parse the HTML and get the hyperlinks
 class HyperlinkParser(HTMLParser):
     """ """
 
-    def __init__(self,include_htags=[],exclude_htags=[]):
+    def __init__(self, include_htags=[], exclude_htags=[]):
         super().__init__()
         # Create a list to store the hyperlinks
         self.hyperlinks = []
@@ -25,8 +30,10 @@ class HyperlinkParser(HTMLParser):
         # If the tag is an anchor tag and it has an href attribute, add the href attribute to the list of hyperlinks
         if tag == "a" and "href" in attrs:
             # only append particular types of links
-            hlink = attrs['href']
-            if any(item in hlink for item in self.include_htags) and not any(item in hlink for item in self.exclude_htags):
+            hlink = attrs["href"]
+            if any(item in hlink for item in self.include_htags) and not any(
+                item in hlink for item in self.exclude_htags
+            ):
                 self.hyperlinks.append(hlink)
 
 
@@ -52,7 +59,7 @@ def get_hyperlinks(url):
         return []
 
     # Create the HTML Parser and then Parse the HTML to get hyperlinks
-    parser = HyperlinkParser(include_htags=["news"],exclude_htags=[])
+    parser = HyperlinkParser(include_htags=include_htags, exclude_htags=exclude_htags)
     parser.feed(html)
 
     return parser.hyperlinks

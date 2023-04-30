@@ -88,3 +88,6 @@ env/
 venv/
 ENV/
 env
+
+# API key
+api_key.txt

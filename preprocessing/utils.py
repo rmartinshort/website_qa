@@ -1,10 +1,11 @@
 from nltk.tokenize import sent_tokenize
 
+
 def remove_newlines(serie):
-    serie = serie.str.replace('\n', ' ')
-    serie = serie.str.replace('\\n', ' ')
-    serie = serie.str.replace('  ', ' ')
-    serie = serie.str.replace('  ', ' ')
+    serie = serie.str.replace("\n", " ")
+    serie = serie.str.replace("\\n", " ")
+    serie = serie.str.replace("  ", " ")
+    serie = serie.str.replace("  ", " ")
     return serie
 
 
@@ -22,7 +23,6 @@ def split_into_many(text, tokenizer, max_tokens=500):
 
     # Loop through the sentences and tokens joined together in a tuple
     for sentence, token in zip(sentences, n_tokens):
-
         # If the number of tokens so far plus the number of tokens in the current sentence is greater
         # than the max number of tokens, then add the chunk to the list of chunks and reset
         # the chunk and tokens so far
