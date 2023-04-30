@@ -31,10 +31,27 @@ class HyperlinkParser(HTMLParser):
         if tag == "a" and "href" in attrs:
             # only append particular types of links
             hlink = attrs["href"]
-            if any(item in hlink for item in self.include_htags) and not any(
-                item in hlink for item in self.exclude_htags
-            ):
-                self.hyperlinks.append(hlink)
+
+            # only append reasonably small links
+            if len(hlink) < 500:
+
+                # if we have a list of things to include (and optionally also a list of things to exclude)
+                if self.include_htags:
+
+                    if any(item in hlink for item in self.include_htags) and not any(
+                        item in hlink for item in self.exclude_htags
+                    ):
+                        self.hyperlinks.append(hlink)
+
+                # if we have a list of things to exclude only
+                elif self.exclude_htags:
+
+                    if not any(item in hlink for item in self.exclude_htags):
+                        self.hyperlinks.append(hlink)
+
+                else:
+                    self.hyperlinks.append(hlink)
+
 
 
 # Function to get the hyperlinks from a URL
